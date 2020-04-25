@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/mahipic/tabs/tabPhotos"></ion-back-button>
+        </ion-buttons>
+        <!-- <ion-title *ngIf="photo">{{ photo.photo_title }}</ion-title> -->
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div *ngIf="!photo">
+        <app-skeleton></app-skeleton>
+    </div>
+
+    <ion-grid class="ion-no-padding" *ngIf="photo">
+        <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center ion-no-padding" size-md="6" size-lg="5" size-xs="12">
+                <ion-card>
+                    <ion-img [src]="photo.img_url"></ion-img>
+                    <ion-card-header>
+                        <!-- <ion-card-title class="ion-text-center">{{ photo.img_ }}</ion-card-title> -->
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-label class="ion-text-justify">{{ photo.img_caption }}</ion-label>
+                    </ion-card-content>
+
+                    <ion-card-header>
+                        <ion-row>
+                            <ion-col size="6" class="ion-text-left">
+                                <ion-chip outline="true" color="primary" [routerLink]="['/', 'mahipic', 'tabs', 'tabPhotos', 'add-photo', photo.id]">
+                                    <ion-icon name="create"></ion-icon>
+                                    <ion-label>Edit</ion-label>
+                                </ion-chip>
+                            </ion-col>
+                            <ion-col size="6" class="ion-text-right">
+                                <ion-chip outline="true" color="danger" (click)="onDeletePhoto(photo.photo_sample, photo.id)">
+                                    <ion-icon name="trash"></ion-icon>
+                                    <ion-label>Delete</ion-label>
+                                </ion-chip>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

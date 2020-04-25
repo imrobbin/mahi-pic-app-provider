@@ -1,0 +1,111 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>{{ userData.title }}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="onCancel()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid class="ion-no-padding">
+        <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center ion-no-padding" size-md="6" size-lg="5" size-xs="12">
+                <form [formGroup]="editProfileForm" *ngIf="userData.openForm == 'edit-profile'">
+                    <ion-list>
+                        <div class="ion-padding-vertical">
+                            <ion-avatar class="profile-avatar">
+                                <img [src]="editProfileForm.controls['avatar'].value" alt="">
+                                <ion-fab-button size="small" color="primary" (click)="showActionSheet()">
+                                    <ion-icon name="camera-reverse"></ion-icon>
+                                </ion-fab-button>
+                            </ion-avatar>
+                        </div>
+
+                        <ion-card>
+                            <ion-card-header>
+                                <ion-card-subtitle>Personal Information</ion-card-subtitle>
+                            </ion-card-header>
+
+                            <ion-item>
+                                <ion-label position="floating">Mobile Number</ion-label>
+                                <ion-input formControlName="mobile"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="floating">Email</ion-label>
+                                <ion-input formControlName="email"></ion-input>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-label position="floating">First Name</ion-label>
+                                <ion-input formControlName="first_name" [class.invalid]="!editProfileForm.controls['first_name'].valid && editProfileForm.controls['first_name'].touched"></ion-input>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-label position="floating">Last Name</ion-label>
+                                <ion-input formControlName="last_name" [class.invalid]="!editProfileForm.controls['last_name'].valid && editProfileForm.controls['last_name'].touched"></ion-input>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-label position="floating">About</ion-label>
+                                <ion-textarea rows="3" formControlName="bio" [class.invalid]="!editProfileForm.controls['bio'].valid && editProfileForm.controls['bio'].touched"></ion-textarea>
+                            </ion-item>
+
+                            <div class="ion-padding">
+                                <ion-button expand="block" [disabled]="!editProfileForm.valid || !profileFormIsEdited" (click)="onUpdateProfile(editProfileForm)">
+                                    Update
+                                </ion-button>
+                            </div>
+                        </ion-card>
+                    </ion-list>
+                </form>
+
+                <form [formGroup]="changePwdForm" *ngIf="userData.openForm == 'change-password'">
+                    <ion-list>
+                        <ion-card>
+                            <ion-item>
+                                <ion-icon name="lock-closed-outline" slot="start" style="margin: 16px 16px 0 0;"></ion-icon>
+                                <ion-icon (click)="togglePassword()" [color]="passwordShown == true ? 'dark' : 'medium'" [name]="passwordShown == true ? 'eye-off-outline' : 'eye-outline'" slot="end" style="margin-top: 14px;"></ion-icon>
+                                <ion-label position="floating">Current Password</ion-label>
+                                <ion-input [type]="passwordTpye" formControlName="password"></ion-input>
+                            </ion-item>
+
+                            <div class="ion-padding-vertical">
+                                <ion-chip outline="true" [color]="changePwdForm.controls['password1'].touched && !changePwdForm.controls['password1'].valid ? 'danger' : 'warning'">
+                                    <ion-label class="ion-text-center">
+                                        New Password must be 8 characters long with 1 alphabet, 1 number and 1 symbol
+                                    </ion-label>
+                                </ion-chip>
+                            </div>
+
+                            <ion-item>
+                                <ion-icon name="lock-closed-outline" [color]="changePwdForm.controls['password1'].touched && changePwdForm.controls['password1'].valid ? 'success' : 'dark'" slot="start" style="margin: 16px 16px 0 0;"></ion-icon>
+                                <ion-icon (click)="togglePassword()" [color]="passwordShown == true ? 'dark' : 'medium'" [name]="passwordShown == true ? 'eye-off-outline' : 'eye-outline'" slot="end" style="margin-top: 16px;"></ion-icon>
+                                <ion-label position="floating">New Password</ion-label>
+                                <ion-input [type]="passwordTpye" formControlName="password1" [class.invalid]="!changePwdForm.controls['password1'].valid && changePwdForm.controls['password1'].touched"></ion-input>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-icon name="checkmark-circle-outline" [color]="!changePwdForm.hasError('mismatchedPasswords') && changePwdForm.controls['password2'].touched && changePwdForm.controls['password2'].valid ? 'success' : 'dark'" slot="start" style="margin: 16px 16px 0 0;"></ion-icon>
+                                <!-- <ion-icon (click)="togglePassword()" [color]="passwordShown == true ? 'dark' : 'medium'" [name]="passwordShown == true ? 'eye-off-outline' : 'eye-outline'" slot="end" style="margin-top: 16px;"></ion-icon> -->
+                                <ion-label position="floating">Confirm Password</ion-label>
+                                <ion-input [type]="passwordTpye" formControlName="password2" [class.invalid]="!changePwdForm.controls['password2'].valid && changePwdForm.controls['password2'].touched && changePwdForm.hasError('mismatchedPasswords')"></ion-input>
+                            </ion-item>
+                            <ion-chip *ngIf="changePwdForm.controls['password2'].touched && changePwdForm.hasError('mismatchedPasswords') && changePwdForm.controls['password1'].valid" color="danger">
+                                <ion-label>Passwords do not match</ion-label>
+                            </ion-chip>
+
+                            <div class="ion-padding">
+                                <ion-button expand="block" [disabled]="!changePwdForm.valid" (click)="onUpdatePassword(changePwdForm)">
+                                    Submit
+                                </ion-button>
+                            </div>
+                        </ion-card>
+                    </ion-list>
+                </form>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

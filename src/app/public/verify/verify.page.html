@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title *ngIf="verifyData && verifyData.title">{{ verifyData.title }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="!verifyData">
+        <app-skeleton></app-skeleton>
+    </div>
+
+    <ion-grid class="ion-no-padding" *ngIf="verifyData">
+        <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center ion-no-padding" size-md="6" size-lg="5" size-xs="12">
+                <ion-list>
+                    <ion-card *ngIf="verifyData.emailVerifyView == true">
+                        <ion-card-header>
+                            <img src="/assets/images/logo.png">
+                            <ion-card-title class="ion-text-center">Verify Email</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            Thanks for registering but before we can let you in we have to check that we have the correct email address for you. To help us can you please follow the steps below:
+
+                            <ion-item *ngFor="let step of steps; let i = index">
+                                <ion-label class="ion-text-wrap">{{i + 1}}. {{ step.note}}</ion-label>
+                            </ion-item>
+
+                            <div class="ion-padding">
+                                <ion-button routerLink="/login" routerDirection="root" expand="block">
+                                    Login
+                                </ion-button>
+                            </div>
+                        </ion-card-content>
+                    </ion-card>
+
+                    <ion-card *ngIf="verifyData.passwordResetView == true">
+                        <ion-card-header>
+                            <img src="/assets/images/logo.png">
+                            <ion-card-title class="ion-text-center">Password Reset Link Sent</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <b>{{ verifyData.email }}</b>, We've emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly. If you don’t receive an email, please make sure you’ve
+                            entered the address you registered with, and check your spam folder.
+
+                            <div class="ion-padding">
+                                <ion-button routerLink="/login" routerDirection="root" expand="block">
+                                    Login
+                                </ion-button>
+                            </div>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <!-- <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons> -->
+        <ion-title>Mahi Pic - Provider</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!-- <ion-button (click)="gotoDetail()">DETAIL PAGE</ion-button> -->
+    <ion-grid class="ion-no-padding">
+        <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center ion-no-padding" size-md="6" size-lg="5" size-xs="12">
+                <ion-card *ngFor="let card of cards; let i = index">
+                    <ion-card-header class="ion-no-padding">
+                        <ion-card-title>
+                            <ion-item class="ion-no-paddig" lines="none">
+                                <ion-avatar slot="start">
+                                    <img [src]="card.avatar">
+                                </ion-avatar>
+                                <ion-label>
+                                    <h2>{{ card.name }}</h2>
+                                    <p>{{ card.tag }}</p>
+                                </ion-label>
+                                <ion-icon slot="end" name="ellipsis-vertical"></ion-icon>
+                            </ion-item>
+                        </ion-card-title>
+                        <ion-card-title class="ion-text-center ion-no-margin">
+                            <img [src]="card.images.imgUrl" />
+                        </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content class="ion-no-padding">
+                        <ion-item lines="none">
+                            <!-- <ion-icon slot="start" color="" name="heart-outline"></ion-icon> -->
+                            <ion-icon slot="start" color="danger" name="heart"></ion-icon>
+
+                            <ion-icon slot="end" color="" name="bookmark-outline"></ion-icon>
+                        </ion-item>
+                        <!-- <ion-row>
+                            <ion-col size="12"> -->
+                        <ion-item lines="none" class="show-more">
+                            <ion-label class="ion-no-margin">
+                                <h2>
+                                    {{ card.images.imgLikes }} {{ card.images.imgLikes > 1 ? 'Likes' : 'Like' }}
+                                </h2>
+                                <p class="ion-text-justify" [class.collapsed]="card.expanded">
+                                    <b>{{ card.name }}</b> {{ card.images.imgCaption }}
+                                </p>
+                                <!-- <ion-icon slot="end" class="ion-float-right" (click)="toggleCaption(card)" name="chevron-down-outline"></ion-icon> -->
+                                <ion-button fill="clear" slot="end" size="small" color="dark" class="ion-no-margin ion-float-right ion-text-lowercase" (click)="toggleCaption(card)">{{ card.expanded ? 'Less' : 'More'}}</ion-button>
+                            </ion-label>
+                        </ion-item>
+                        <!-- </ion-col>
+                        </ion-row> -->
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -1,0 +1,33 @@
+.img-wrapper {
+    min-height: 110px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.photo-grid {
+    row {
+        background-color: #ececec;
+    }
+    ion-col {
+        padding: 5px;
+    }
+    ion-col:nth-child(2) {
+        padding: 5px 0;
+    }
+    ion-col:nth-child(5) {
+        padding: 5px 0;
+    }
+    ion-col:nth-child(8) {
+        padding: 5px 0;
+    }
+    ion-col:nth-child(4) {
+        padding: 0 5px;
+    }
+    ion-col:nth-child(5) {
+        padding: 0 5px;
+    }
+    ion-col:nth-child(6) {
+        padding: 0 5px;
+    }
+}

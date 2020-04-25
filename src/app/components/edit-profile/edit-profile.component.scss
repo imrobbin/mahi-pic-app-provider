@@ -1,0 +1,21 @@
+ion-content {
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+        position: relative;
+        ion-fab-button {
+            position: absolute;
+            display: block;
+            bottom: -15px;
+            right: -20px;
+        }
+    }
+    .help-message {
+        padding: 6px 0 10px 18px;
+        font-size: 9px;
+    }
+    ion-chip {
+        height: auto;
+    }
+}

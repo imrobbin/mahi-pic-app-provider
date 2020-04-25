@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/mahipic/tabs/tabPhotos"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ photo === undefined ? 'Add' : 'Update' }} Sample Photo</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid class="ion-no-padding">
+        <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center ion-no-padding" size-md="6" size-lg="5" size-xs="12">
+                <form [formGroup]="addPhotoForm">
+                    <ion-card>
+                        <ion-card-header class="ion-no-padding" *ngIf="addPhotoForm.controls['image'].value != null">
+                            <ion-img [src]="addPhotoForm.controls['image'].value"></ion-img>
+                        </ion-card-header>
+                        <ion-card-content class="ion-text-center">
+                            <ion-button class="ion-text-capitalize" fill="clear" color="primary" (click)="addSamplePhoto()">{{ addPhotoForm.controls['image'].value == null ? 'Select' : 'Change' }} Photo</ion-button>
+                        </ion-card-content>
+                    </ion-card>
+
+                    <ion-list>
+                        <ion-card>
+                            <ion-card-header>
+                                <ion-card-subtitle>Photo Details</ion-card-subtitle>
+                            </ion-card-header>
+                            <!-- <ion-item>
+                                <ion-label position="floating">Title</ion-label>
+                                <ion-input formControlName="title"></ion-input>
+                            </ion-item> -->
+                            <ion-item>
+                                <ion-label position="floating">Write a caption</ion-label>
+                                <ion-textarea rows="3" formControlName="caption"></ion-textarea>
+                            </ion-item>
+
+                            <div class="ion-padding">
+                                <ion-button expand="block" [disabled]="!addPhotoForm.valid || !addPhotoFormIsEdited" (click)="onAddPhotoSample(addPhotoForm)">
+                                    {{ photo == undefined ? 'Add' : 'Update' }}
+                                </ion-button>
+                            </div>
+                        </ion-card>
+                    </ion-list>
+                </form>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

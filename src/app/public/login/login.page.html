@@ -1,0 +1,134 @@
+<!-- <ion-header>
+    <ion-toolbar>
+        <ion-title>Login</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-button (click)="login()" expand="block">Login</ion-button>
+    <ion-button (click)="register()" expand="block">Register</ion-button>
+    <ion-button expand="block" color="secondary" routerLink="/verify" routerDirection="forward">Register</ion-button>
+</ion-content> -->
+
+
+<ion-content class="swiper-no-swiping">
+    <ion-grid class="ion-no-padding">
+        <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center ion-no-padding" size-md="6" size-lg="5" size-xs="12">
+                <!-- <img src="/assets/images/logo.png"> -->
+                <div class="ion-padding">
+                    <ion-button color="tertiary" class="ion-text-capitalize" expand="block" fill="clear">
+                        Pic App - Provider
+                    </ion-button>
+                </div>
+                <div class="toolbar-div">
+                    <ion-toolbar color="primary">
+                        <ion-segment (ionChange)="segmentChanged($event)" value="login">
+                            <ion-segment-button value="login">Login</ion-segment-button>
+                            <ion-segment-button value="signup">Signup</ion-segment-button>
+                        </ion-segment>
+                    </ion-toolbar>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-slides>
+        <ion-slide>
+            <ion-grid class="ion-no-padding">
+                <ion-row class="ion-justify-content-center">
+                    <ion-col class="ion-align-self-center ion-no-padding" size-md="6" size-lg="5" size-xs="12">
+                        <ion-card>
+                            <div class="my-card-content">
+                                <form [formGroup]="loginForm">
+                                    <ion-card-content>
+                                        <ion-list class="ion-no-padding">
+                                            <ion-item>
+                                                <ion-icon name="apps-outline" color="primary" slot="start"></ion-icon>
+                                                <ion-input placeholder="Mobile Number or Email" formControlName="email_or_mobile" type="text" [class.invalid]="!loginForm.controls['email_or_mobile'].valid && loginForm.controls['email_or_mobile'].touched">
+                                                </ion-input>
+                                            </ion-item>
+
+                                            <ion-item>
+                                                <ion-icon name="lock-open-outline" color="primary" slot="start"></ion-icon>
+                                                <ion-input placeholder="Password" formControlName="password" [type]="passwordTpye" [class.invalid]="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
+                                                </ion-input>
+                                                <ion-icon (click)="togglePassword()" [color]="passwordShown == true ? 'dark' : 'medium'" [name]="passwordShown == true ? 'eye-off-outline' : 'eye-outline'" slot="end"></ion-icon>
+                                            </ion-item>
+                                        </ion-list>
+
+                                    </ion-card-content>
+                                    <ion-card-header>
+                                        <ion-button (click)="_loginAction(loginForm)" color="primary" expand="block" [disabled]="!loginForm.valid">
+                                            Login
+                                        </ion-button>
+
+                                        <span class="divider line one-line">or</span>
+                                        <span class="already">Use Social Account</span>
+
+                                        <div class="ion-padding-top">
+                                            <ion-button (click)="_forgotPassword()" class="ion-text-capitalize" expand="block" fill="clear">
+                                                Forgot Password?
+                                            </ion-button>
+                                        </div>
+                                    </ion-card-header>
+                                </form>
+                            </div>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+
+        <ion-slide>
+            <ion-grid class="ion-no-padding">
+                <ion-row class="ion-justify-content-center">
+                    <ion-col class="ion-align-self-center ion-no-padding" size-md="6" size-lg="5" size-xs="12">
+                        <ion-card>
+                            <div class="my-card-content">
+                                <ion-card-content>
+                                    <form [formGroup]="signupForm">
+                                        <ion-list class="ion-no-padding">
+                                            <ion-item>
+                                                <ion-input placeholder="Mobile Number" formControlName="mobile" type="number" maxlength="10" [class.invalid]="!signupForm.controls['mobile'].valid && signupForm.controls['mobile'].touched">
+                                                </ion-input>
+                                                <ion-icon name="call-outline" color="primary" slot="start"></ion-icon>
+                                            </ion-item>
+                                            <div class="ion-text-start help-message">
+                                                Exclude country code (+91)
+                                            </div>
+
+                                            <ion-item>
+                                                <ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
+                                                <ion-input placeholder="Email" formControlName="email" type="email" [class.invalid]="!signupForm.controls['email'].valid && signupForm.controls['email'].touched">
+                                                </ion-input>
+                                            </ion-item>
+                                            <div class="ion-text-start help-message">
+                                                You will recieve an email for varification
+                                            </div>
+
+                                            <ion-item>
+                                                <ion-icon name="lock-open-outline" color="primary" slot="start"></ion-icon>
+                                                <ion-input placeholder="Password" formControlName="password" [type]="passwordTpye" minlength="8" [class.invalid]="!signupForm.controls['password'].valid && signupForm.controls['password'].touched">
+                                                </ion-input>
+                                                <ion-icon (click)="togglePassword()" [color]="passwordShown == true ? 'dark' : 'medium'" [name]="passwordShown == true ? 'eye-off-outline' : 'eye-outline'" slot="end"></ion-icon>
+                                            </ion-item>
+                                            <div class="ion-text-start help-message ion-padding-bottom">
+                                                Must be 8 to 16 characters with 1 alphabet, 1 number & 1 symbol
+                                            </div>
+                                        </ion-list>
+                                    </form>
+                                </ion-card-content>
+                                <ion-card-header>
+                                    <ion-button (click)="_signupAction(signupForm)" expand="block" [disabled]="!signupForm.valid">
+                                        Signup
+                                    </ion-button>
+                                </ion-card-header>
+                            </div>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+    </ion-slides>
+</ion-content>

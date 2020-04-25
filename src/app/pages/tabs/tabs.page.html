@@ -1,0 +1,18 @@
+<ion-tabs (ionTabsWillChange)="onTabChangeStart($event)">
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="tabHome">
+            <ion-icon [name]="tabHomeIcon ? 'home' : 'home-outline'"></ion-icon>
+            <ion-label>Home</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="tabPhotos">
+            <ion-icon [name]="tabPhotosIcon ? 'images' : 'images-outline'"></ion-icon>
+            <ion-label>My Photos</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="tabSettings">
+            <ion-icon [name]="tabSettingsIcon ? 'person' : 'person-outline'"></ion-icon>
+            <ion-label>Profile</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>

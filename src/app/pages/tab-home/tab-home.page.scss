@@ -1,0 +1,13 @@
+ion-card-content {
+    .show-more {
+        p {
+            max-height: 20px;
+            transition: all 3s ease-in-out 0.5s;
+        }
+        .collapsed {
+            max-height: max-content;
+            white-space: pre-wrap;
+            transition: all 3s ease-in-out 0.5s;
+        }
+    }
+}
