@@ -167,13 +167,13 @@ export class EditProfileComponent implements OnInit {
         imgWidth?: number
     ) {
         try {
+            this.loadingService.showLoading('Uploading...');
+
             const takePhotoRes = await this.cameraService.takePicture(
                 source,
                 imgHeight,
                 imgWidth
             );
-
-            this.loadingService.showLoading('Uploading...');
 
             const uploadRes = await this.cameraService.uploadPhoto(
                 takePhotoRes.webPath,
@@ -181,11 +181,11 @@ export class EditProfileComponent implements OnInit {
                 this.userData.profile.avatar.split('+')[1].split('.')[0],
                 'add'
             );
-            if (uploadRes['success']) {
+            if (uploadRes.success) {
                 const avatarData = {
                     avatar:
                         'https://mahipicapp.000webhostapp.com/mahipicapp/profile_photo/' +
-                        uploadRes['filename'],
+                        uploadRes.filename,
                 };
                 const avatarUpRes = await this.httpService.makeApiCall(
                     'put',
@@ -219,6 +219,7 @@ export class EditProfileComponent implements OnInit {
             }
             await this.loadingService.hideLoading();
         } catch (error) {
+            await this.loadingService.hideLoading();
             this.loadingService.presentToast('Action Cancelled', 'danger');
         }
     }
