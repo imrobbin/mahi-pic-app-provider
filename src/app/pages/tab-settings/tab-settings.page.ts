@@ -47,11 +47,10 @@ export class TabSettingsPage implements OnInit {
     }
 
     async getUserDataFromStorage(): Promise<any> {
-        const isUser = await this.storageService.get(StorageConst.USER);
+        this.userData = await this.storageService.get(StorageConst.USER);
         const isProfile = await this.storageService.get(StorageConst.PROFILE);
 
-        if (isUser && isProfile) {
-            this.userData = isUser;
+        if (this.userData && isProfile) {
             this.profile = isProfile;
             console.log('Local Data Found');
         } else {
@@ -61,18 +60,14 @@ export class TabSettingsPage implements OnInit {
 
     async getDataFromAPI(): Promise<any> {
         try {
-            this.userData = await this.httpService.makeApiCall(
-                'get',
-                'accounts/user/'
-            );
             this.profile = await this.httpService.makeApiCall(
                 'get',
                 'profiles/profile-list/' + this.userData.pk + '/'
             );
-
-            await this.storageService.store(StorageConst.USER, this.userData);
             await this.storageService.store(StorageConst.PROFILE, this.profile);
-        } catch (error) {}
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     async _logoutAction(): Promise<void> {
@@ -171,6 +166,34 @@ export class TabSettingsPage implements OnInit {
     }
 
     ChangePassword() {
+        const enterAnimation = (baseEl: any) => {
+            const backdropAnimation = this.animationCtrl
+                .create()
+                // tslint:disable-next-line: no-non-null-assertion
+                .addElement(baseEl.querySelector('ion-backdrop')!)
+                .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+
+            const wrapperAnimation = this.animationCtrl
+                .create()
+                // tslint:disable-next-line: no-non-null-assertion
+                .addElement(baseEl.querySelector('.modal-wrapper')!)
+                .keyframes([
+                    { offset: 0, opacity: '0', transform: 'scale(0)' },
+                    { offset: 1, opacity: '0.99', transform: 'scale(1)' },
+                ]);
+
+            return this.animationCtrl
+                .create()
+                .addElement(baseEl)
+                .easing('ease-out')
+                .duration(500)
+                .addAnimation([backdropAnimation, wrapperAnimation]);
+        };
+
+        const leaveAnimation = (baseEl: any) => {
+            return enterAnimation(baseEl).direction('reverse');
+        };
+
         this.modalCtrl
             .create({
                 component: EditProfileComponent,
