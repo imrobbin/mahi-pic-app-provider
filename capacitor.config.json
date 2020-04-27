@@ -1,0 +1,8 @@
+{
+    "appId": "com.pic.app.photographer",
+    "appName": "PIC Photographer",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "www",
+    "cordova": {}
+}
